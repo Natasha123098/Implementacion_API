@@ -18,14 +18,16 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework import routers
 
-from Doctores.views import Nuevo_Doctor, Editar_Doctor, Eliminar_Doctor, Ver_Doctor, Registro_Doctor
-from quickstart import views
+from Doctores.views import Nuevo_Doctor, Editar_Doctor, Eliminar_Doctor, Ver_Doctor, Registro_Doctor, DoctorViewSet, \
+    ExperienciaViewSet, TurnoTrabajoViewSet, Lugar_TrabajoViewSet
+#from quickstart import views
 from webapp.views import mostrar_Doctores
 
 router = routers.DefaultRouter()
-router.register(r'doctor', views.DoctorViewSet)
-
-
+router.register(r'doctor', DoctorViewSet)
+router.register(r'experiencia', ExperienciaViewSet)
+router.register(r'turnotrabajo', TurnoTrabajoViewSet)
+router.register(r'lugartrabajo', Lugar_TrabajoViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),

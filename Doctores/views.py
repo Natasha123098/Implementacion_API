@@ -3,9 +3,16 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.template import loader
 from openpyxl.workbook import Workbook
+from rest_framework import viewsets, permissions
 
 from Doctores.forms import DoctorFormulario
-from Doctores.models import Doctor
+from Doctores.models import Doctor, Experiencia, TurnoTrabajo
+from Doctores.serializers import DoctorSerializer, ExperienciaSerializer, TurnoTrabajoSerializer, \
+    Lugar_TrabajoSerializer
+
+
+#from quickstart.serializers import DoctorSerializer
+
 
 #DoctorFormulario=modelform_factory(Doctor, exclude=[])
 
@@ -85,3 +92,36 @@ def Registro_Doctor(request):
     response["Content-Disposition"] = contenido
     wb.save(response)
     return response
+
+
+class DoctorViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows users to be viewed or edited.
+    """
+    queryset = Doctor.objects.all().order_by('apellido')
+    serializer_class = DoctorSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+class ExperienciaViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows users to be viewed or edited.
+    """
+    queryset = Experiencia.objects.all().order_by()
+    serializer_class = ExperienciaSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+class TurnoTrabajoViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows users to be viewed or edited.
+    """
+    queryset = TurnoTrabajo.objects.all().order_by()
+    serializer_class = TurnoTrabajoSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+class Lugar_TrabajoViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows users to be viewed or edited.
+    """
+    queryset = TurnoTrabajo.objects.all().order_by()
+    serializer_class = Lugar_TrabajoSerializer
+    permission_classes = [permissions.IsAuthenticated]
